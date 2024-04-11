@@ -68,9 +68,7 @@ hr {
   .left-section {
     width: 100%;
   }
-  .links {
-    display: none;
-  }
+
   #bars-icon {
     margin-top: 5px;
     display: block;
@@ -150,10 +148,25 @@ li {
 .grid p {
   border: 1px solid black;
   margin: 0;
-  padding: 5px;
+  padding: 0;
 }
 
 .grid p {
   font-weight: bold;
   font-size: 1.3rem;
+}
+
+.history div {
+  justify-content: start;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+#pl,
+#pr {
+  margin: 0;
+  padding: 0;
+}
+#pr {
+  border-left: 1px solid black;
 }
