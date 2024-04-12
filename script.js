@@ -52,8 +52,6 @@ setInterval(() => {
   showTimeData();
 }, 1000);
 
-barIcon.addEventListener("click", showMenu);
-
 window.addEventListener("resize", function () {
   if (window.innerWidth > 600) {
     document.querySelector(".links").style.display = "block";
@@ -62,6 +60,7 @@ window.addEventListener("resize", function () {
   }
 });
 
+barIcon.addEventListener("click", showMenu);
 // ----------
 
 const AddInput = document.querySelector(".AdditionInput");
