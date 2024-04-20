@@ -179,11 +179,10 @@ const showHistory = (oper, x) => {
   id.innerHTML = `${num}.`;
   wynik.innerHTML = x;
   operations.innerHTML = oper;
+
   history.appendChild(id);
   history.appendChild(operations);
-
   history.appendChild(wynik);
-
   num++;
 };
 
