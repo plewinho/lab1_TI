@@ -95,7 +95,6 @@ setInterval(() => {
   showTimeData();
 }, 1000);
 
-
 // ---------------------------------------------------
 
 function showInput() {
@@ -218,7 +217,6 @@ function clearInput() {
 }
 
 //--------------------------------------------------------------
-
 
 window.addEventListener("resize", function () {
   if (window.innerWidth > 600) {
