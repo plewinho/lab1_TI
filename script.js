@@ -3,6 +3,41 @@ const links = document.querySelector(".links");
 const date = document.querySelector(".date");
 const time = document.querySelector(".time");
 
+const AddInput = document.querySelector(".AdditionInput");
+const DivInput = document.querySelector(".DivisionInput");
+const QuaInput = document.querySelector(".QuadraticInput");
+
+const addA = document.getElementById("addA");
+const addB = document.getElementById("addB");
+const divA = document.getElementById("divA");
+const divB = document.getElementById("divB");
+const quaA = document.getElementById("quaA");
+const quaB = document.getElementById("quaB");
+const quaC = document.getElementById("quaC");
+const history = document.querySelector(".history");
+
+const calculate = document.querySelector(".oblicz");
+const clear = document.querySelector(".clear");
+
+const loginForm = document.querySelector(".login-form");
+const logoutSection = document.querySelector(".logout-section");
+const logoutBtn = document.querySelector(".logoutBtn");
+const LoginBtn = document.querySelector(".LoginBtn");
+const errorMsg = document.querySelector(".message");
+
+const welcomeLi = document.querySelector(".welcomeLi");
+const welcomeSpan = document.querySelector(".welcome-span");
+
+const themeDiv = document.querySelector(".theme-switcher");
+const themeStandard = document.getElementById("theme-standard");
+const themeBlack = document.getElementById("theme-black");
+const applyThemeButton = document.getElementById("apply-theme");
+
+const adminCred = { login: "admin", password: "admin" };
+const userCred = { login: "user", password: "user" };
+
+let num = 1;
+
 const months = [
   "Styczeń",
   "Luty",
@@ -30,6 +65,7 @@ function showTimeData() {
   let now = new Date();
   let secound = now.getSeconds();
   let minutes = now.getMinutes();
+  let hours = now.getHours();
   if (secound < 10) {
     secound = `0${now.getSeconds()}`;
   } else {
@@ -41,7 +77,14 @@ function showTimeData() {
   } else {
     minutes = now.getMinutes();
   }
-  time.innerHTML = `${now.getHours()}:${minutes}:${secound}`;
+
+  if (hours < 10) {
+    hours = `0${now.getHours()}`;
+  } else {
+    hours = now.getHours();
+  }
+
+  time.innerHTML = `${hours}:${minutes}:${secound}`;
 
   date.innerHTML = `${now.getDate()} ${
     months[now.getMonth()]
@@ -52,34 +95,8 @@ setInterval(() => {
   showTimeData();
 }, 1000);
 
-window.addEventListener("resize", function () {
-  if (window.innerWidth > 600) {
-    document.querySelector(".links").style.display = "block";
-  } else {
-    document.querySelector(".links").style.display = "none";
-  }
-});
 
-barIcon.addEventListener("click", showMenu);
-// ----------
-
-const AddInput = document.querySelector(".AdditionInput");
-const DivInput = document.querySelector(".DivisionInput");
-const QuaInput = document.querySelector(".QuadraticInput");
-
-const addA = document.getElementById("addA");
-const addB = document.getElementById("addB");
-const divA = document.getElementById("divA");
-const divB = document.getElementById("divB");
-const quaA = document.getElementById("quaA");
-const quaB = document.getElementById("quaB");
-const quaC = document.getElementById("quaC");
-const history = document.querySelector(".history");
-
-const calculate = document.querySelector(".oblicz");
-const clear = document.querySelector(".clear");
-
-let num = 1;
+// ---------------------------------------------------
 
 function showInput() {
   if (document.getElementById("add").checked) {
@@ -160,18 +177,6 @@ const clearInputs = () => {
   quaC.value = "";
 };
 
-calculate.addEventListener("click", () => {
-  if (document.getElementById("add").checked) {
-    add();
-  } else if (document.getElementById("div").checked) {
-    divide();
-  } else if (document.getElementById("que").checked) {
-    quadratic();
-  } else {
-    showHistory("---", "ERROR");
-  }
-});
-
 const showHistory = (oper, x) => {
   const id = document.createElement("li");
   const operations = document.createElement("li");
@@ -186,7 +191,108 @@ const showHistory = (oper, x) => {
   num++;
 };
 
-clear.addEventListener("click", () => {
-  history.textContent = "";
-  num = 1;
+function checkLoginStatus() {
+  let userType = localStorage.getItem("userType");
+  if (userType) {
+    loginForm.style.display = "none";
+    logoutSection.style.display = "block";
+    welcomeLi.style.display = "block";
+    welcomeSpan.textContent = `${userType
+      .charAt(0)
+      .toUpperCase()}${userType.slice(1)}!`;
+    if (userType === "admin") {
+      themeDiv.style.display = "block";
+    } else {
+      themeDiv.style.display = "none";
+    }
+  } else {
+    loginForm.style.display = "block";
+    logoutSection.style.display = "none";
+    themeDiv.style.display = "none";
+  }
+}
+
+function clearInput() {
+  document.getElementById("login").value = "";
+  document.getElementById("password").value = "";
+}
+
+//--------------------------------------------------------------
+
+
+window.addEventListener("resize", function () {
+  if (window.innerWidth > 600) {
+    document.querySelector(".links").style.display = "block";
+  } else {
+    document.querySelector(".links").style.display = "none";
+  }
 });
+
+barIcon.addEventListener("click", showMenu);
+
+if (calculate) {
+  calculate.addEventListener("click", () => {
+    if (document.getElementById("add").checked) {
+      add();
+    } else if (document.getElementById("div").checked) {
+      divide();
+    } else if (document.getElementById("que").checked) {
+      quadratic();
+    } else {
+      showHistory("---", "ERROR");
+    }
+  });
+}
+
+if (clear) {
+  clear.addEventListener("click", () => {
+    history.textContent = "";
+    num = 1;
+  });
+}
+
+LoginBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  let login = document.getElementById("login").value;
+  let password = document.getElementById("password").value;
+
+  if (login === adminCred.login && password === adminCred.password) {
+    localStorage.setItem("userType", "admin");
+    checkLoginStatus();
+    errorMsg.textContent = "";
+    window.location.href = "welcome.html";
+
+    console.log("ADMIN");
+  } else if (login === userCred.login && password === userCred.password) {
+    localStorage.setItem("userType", "user");
+    checkLoginStatus();
+    errorMsg.textContent = "";
+    window.location.href = "welcome.html";
+
+    console.log("USER");
+  } else {
+    errorMsg.textContent = "Login FAILED";
+    errorMsg.style.color = "red";
+    errorMsg.style.fontWeight = "bold";
+  }
+  clearInput();
+});
+
+logoutBtn.addEventListener("click", () => {
+  localStorage.removeItem("userType");
+  window.location.href = "index.html";
+
+  checkLoginStatus();
+});
+
+if (applyThemeButton) {
+  applyThemeButton.addEventListener("click", () => {
+    let selectedTheme = themeStandard.checked ? "standard" : "black";
+    localStorage.setItem("theme", selectedTheme);
+    document.body.className = selectedTheme; // assuming the theme names are the same as the class names
+  });
+}
+
+document.body.className = localStorage.getItem("theme") || "standard";
+
+checkLoginStatus();

@@ -28,6 +28,9 @@
         <i class="fa-solid fa-bars" id="bars-icon"></i>
         <div class="links">
           <ul>
+            <li class="welcomeLi" style="display: none">
+              <a class="info-links" href="welcome.html">Welcome</a>
+            </li>
             <li>
               <a class="info-links" href="index.html">Home</a>
             </li>
@@ -39,6 +42,25 @@
             </li>
           </ul>
         </div>
+
+        <div class="login-form">
+          <form>
+            <div class="form-group">
+              <label for="login">Login</label>
+              <input type="text" id="login" name="login" required />
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" id="password" name="password" required />
+            </div>
+            <button type="submit" class="LoginBtn">Login</button>
+          </form>
+          <p class="message"></p>
+        </div>
+        <div class="logout-section">
+          <button class="logoutBtn">Logout</button>
+        </div>
+
         <div class="time-data">
           <p><span class="infoDate">date: </span><span class="date"></span></p>
           <p><span class="infoTime">time: </span><span class="time"></span></p>

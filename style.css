@@ -45,6 +45,7 @@ img {
 
 .right-section {
   padding: 20px;
+  margin: 10px 0;
   flex: 1;
 }
 
@@ -66,7 +67,7 @@ hr {
     flex-direction: column;
   }
   .left-section {
-    width: 100%;
+    width: 95%;
   }
 
   #bars-icon {
@@ -74,9 +75,17 @@ hr {
     display: block;
     cursor: pointer;
   }
+  .form-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
 }
 
-.links {
+.links,
+.logout-section,
+.login-form {
   background-color: antiquewhite;
   margin-top: 10px;
   width: 90%;
@@ -98,7 +107,9 @@ li {
   text-align: center;
 }
 
-.info-links {
+.info-links,
+.LoginBtn,
+.logoutBtn {
   text-decoration: none;
   display: block;
   width: 100%;
@@ -110,7 +121,9 @@ li {
   transition: background-color 0.4s;
 }
 
-.info-links:hover {
+.info-links:hover,
+.LoginBtn:hover,
+.logoutBtn:hover {
   background-color: rgba(226, 79, 79, 0.719);
   color: rgb(52, 52, 241);
 }
@@ -171,4 +184,44 @@ li {
 }
 #pr {
   border-left: 1px solid black;
+}
+
+.login-form,
+.logout-section {
+  box-sizing: border-box;
+  padding: 10px;
+}
+
+.form-group {
+  margin: 10px 0;
+}
+#login,
+#password {
+  border-radius: 5px;
+  margin-top: 5px;
+  padding: 5px 0;
+  border: 1px solid black;
+}
+
+#apply-theme {
+  display: block;
+  margin-top: 10px;
+}
+body.black {
+  background-color: black;
+  color: white;
+}
+
+body.black header,
+body.black footer,
+body.black .left-section,
+body.black .history li {
+  background-color: rgba(168, 22, 22, 0.8);
+}
+body.black .form-group label,
+body.black .grid p {
+  color: rgb(0, 0, 0);
+}
+body.black {
+  filter: grayscale(100%);
 }

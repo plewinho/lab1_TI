@@ -3,17 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Calculator</title>
+    <title>Welcome</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-    rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
     />
     <script
-    src="https://kit.fontawesome.com/63feca257c.js"
-    crossorigin="anonymous"
+      src="https://kit.fontawesome.com/63feca257c.js"
+      crossorigin="anonymous"
     ></script>
   </head>
   <body>
@@ -25,7 +25,7 @@
           src="https://www.pk.edu.pl/images/PK18/promocja/KIW_2020/SYGNET_PK/PK_SYGNET_RGB.jpg"
           alt="logo PK"
         />
-      
+
         <i class="fa-solid fa-bars" id="bars-icon"></i>
         <div class="links">
           <ul>
@@ -43,7 +43,7 @@
             </li>
           </ul>
         </div>
-        
+
         <div class="login-form">
           <form>
             <div class="form-group">
@@ -63,79 +63,31 @@
         </div>
 
         <div class="time-data">
-         
           <p><span class="infoDate">date: </span><span class="date"></span></p>
           <p><span class="infoTime">time: </span><span class="time"></span></p>
         </div>
       </div>
 
       <div class="right-section">
-        <div class="box">
-          <h1>Mathematical Operation:</h1>
-
-          <div class="calculator">
-            <div class="Addition">
-              <input
-                type="radio"
-                name="type"
-                value="1"
-                id="add"
-                onclick="showInput();"
-              />(+) Addition
-              <div class="AdditionInput">
-                <input type="number" id="addA" /> +
-                <input type="number" id="addB" />
-              </div>
-            </div>
-
-            <div class="Divison">
-              <input
-                type="radio"
-                name="type"
-                value="2"
-                id="div"
-                onclick="showInput();"
-              />(/) Division
-              <div class="DivisionInput">
-                <input type="number" id="divA" /> /
-                <input type="number" id="divB" />
-              </div>
-            </div>
-            <div class="Quadratic">
-              <input
-                type="radio"
-                name="type"
-                value="3"
-                id="que"
-                onclick="showInput();"
-              />(ax^2+bx+c) Quadratic equation roots
-              <div class="QuadraticInput">
-                <input type="number" id="quaA" /> x^2 +
-                <input type="number" id="quaB" /> x +
-                <input type="number" id="quaC" />
-              </div>
-            </div>
-          </div>
-
-          <button class="oblicz">Calculate</button>
-          <hr />
-<button class="clear">Clear</button>
-        </div>
-        <div class="grid">
-          <p>Id.</p>
-          <p>Operation</p>
-          <p>X</p>
-        </div>
-          <ul class="history">
-            
-          </ul>
-        </div>
+        <p>Hello <span class="welcome-span"></span></p>
+        <hr />
+        <div class="theme-switcher" style="display: none">
+          <h2>Set page theme:</h2>
+          <input
+            type="radio"
+            id="theme-standard"
+            name="theme"
+            value="standard"
+          />
+          <label for="theme-standard">Standard</label><br />
+          <input type="radio" id="theme-black" name="theme" value="black" />
+          <label for="theme-black">Black</label>
+          <button id="apply-theme">Change Theme</button>
         </div>
       </div>
     </div>
     <footer>Footer</footer>
     <script src="script.js"></script>
-    
-
+    <script src="calculator.js"></script>
   </body>
 </html>
