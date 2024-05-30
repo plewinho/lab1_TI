@@ -111,7 +111,6 @@ function checkLoginStatus() {
   } else {
     loginForm.style.display = "block";
     logoutSection.style.display = "none";
-    // themeDiv.style.display = "none";
   }
 }
 
