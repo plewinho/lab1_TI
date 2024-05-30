@@ -3,22 +3,6 @@ const links = document.querySelector(".links");
 const date = document.querySelector(".date");
 const time = document.querySelector(".time");
 
-const AddInput = document.querySelector(".AdditionInput");
-const DivInput = document.querySelector(".DivisionInput");
-const QuaInput = document.querySelector(".QuadraticInput");
-
-const addA = document.getElementById("addA");
-const addB = document.getElementById("addB");
-const divA = document.getElementById("divA");
-const divB = document.getElementById("divB");
-const quaA = document.getElementById("quaA");
-const quaB = document.getElementById("quaB");
-const quaC = document.getElementById("quaC");
-const history = document.querySelector(".history");
-
-const calculate = document.querySelector(".oblicz");
-const clear = document.querySelector(".clear");
-
 const loginForm = document.querySelector(".login-form");
 const logoutSection = document.querySelector(".logout-section");
 const logoutBtn = document.querySelector(".logoutBtn");
@@ -33,10 +17,19 @@ const themeStandard = document.getElementById("theme-standard");
 const themeBlack = document.getElementById("theme-black");
 const applyThemeButton = document.getElementById("apply-theme");
 
-const adminCred = { login: "admin", password: "admin" };
-const userCred = { login: "user", password: "user" };
+const newLogin = document.getElementById("new-login");
+const newPassword = document.getElementById("new-password");
+const ChangeSetBtn = document.querySelector(".changeBtn");
+const changeMessage = document.querySelector(".change-message");
 
-let num = 1;
+const adminCred = JSON.parse(localStorage.getItem("adminCred")) || {
+  login: "admin",
+  password: "admin",
+};
+const userCred = JSON.parse(localStorage.getItem("userCred")) || {
+  login: "user",
+  password: "user",
+};
 
 const months = [
   "Styczeń",
@@ -52,6 +45,10 @@ const months = [
   "Listopad",
   "Grudzień",
 ];
+
+//--------------------------------------------------------------
+// Functions
+//--------------------------------------------------------------
 
 const showMenu = () => {
   if (links.style.display === "none") {
@@ -95,119 +92,26 @@ setInterval(() => {
   showTimeData();
 }, 1000);
 
-// ---------------------------------------------------
-
-function showInput() {
-  if (document.getElementById("add").checked) {
-    AddInput.style.display = "block";
-    DivInput.style.display = "none";
-    QuaInput.style.display = "none";
-  } else if (document.getElementById("div").checked) {
-    AddInput.style.display = "none";
-    DivInput.style.display = "block";
-    QuaInput.style.display = "none";
-  } else if (document.getElementById("que").checked) {
-    AddInput.style.display = "none";
-    DivInput.style.display = "none";
-    QuaInput.style.display = "block";
-  }
-}
-const add = () => {
-  let a = parseFloat(addA.value);
-  let b = parseFloat(addB.value);
-  let x = a + b;
-  let operation = `${a} + ${b} = ${x}`;
-  if (isNaN(a) || isNaN(b)) {
-    showHistory("+ = x", "ERROR(empty input)");
-  } else {
-    showHistory(operation, x.toFixed(2));
-  }
-  clearInputs();
-};
-
-const divide = () => {
-  let a = parseFloat(divA.value);
-  let b = parseFloat(divB.value);
-  let x = a / b;
-  let operation = `${a} / ${b} = ${x}`;
-  if (isNaN(a) || isNaN(b)) {
-    showHistory("/ = x", "ERROR(empty input)");
-  } else if (b == 0) {
-    showHistory(`${a} / ${b} = x`, `ERROR(b=${b})`);
-  } else {
-    showHistory(operation, x.toFixed(2));
-  }
-  clearInputs();
-};
-
-const quadratic = () => {
-  let a = parseFloat(quaA.value);
-  let b = parseFloat(quaB.value);
-  let c = parseFloat(quaC.value);
-  let delta = b * b - 4 * a * c;
-  if (isNaN(a) || isNaN(b) || isNaN(c)) {
-    showHistory(`x^2 + x + = x`, `ERROR(empty input)`);
-  } else if (delta < 0) {
-    showHistory(`${a} x^2 + ${b} x + ${c} = x`, `ERROR(Δ<0)`);
-  } else if (delta === 0) {
-    let x = -b / (2 * a);
-    showHistory(`${a} x^2 + ${b} x + ${c} = x`, `x = ${x.toFixed(2)}`);
-  } else {
-    let x1 = (-b - Math.sqrt(delta)) / (2 * a);
-    let x2 = (-b + Math.sqrt(delta)) / (2 * a);
-    showHistory(
-      `${a} x^2 + ${b} x + ${c} = x`,
-      `<div><p id="pl">x1 = ${x1.toFixed(2)}</p> <p id="pr">  x2 = ${x2.toFixed(
-        2
-      )} </p></div>`
-    );
-  }
-
-  clearInputs();
-};
-
-const clearInputs = () => {
-  addA.value = "";
-  addB.value = "";
-  divA.value = "";
-  divB.value = "";
-  quaA.value = "";
-  quaB.value = "";
-  quaC.value = "";
-};
-
-const showHistory = (oper, x) => {
-  const id = document.createElement("li");
-  const operations = document.createElement("li");
-  const wynik = document.createElement("li");
-  id.innerHTML = `${num}.`;
-  wynik.innerHTML = x;
-  operations.innerHTML = oper;
-
-  history.appendChild(id);
-  history.appendChild(operations);
-  history.appendChild(wynik);
-  num++;
-};
-
 function checkLoginStatus() {
   let userType = localStorage.getItem("userType");
   if (userType) {
     loginForm.style.display = "none";
     logoutSection.style.display = "block";
     welcomeLi.style.display = "block";
-    welcomeSpan.textContent = `${userType
-      .charAt(0)
-      .toUpperCase()}${userType.slice(1)}!`;
-    if (userType === "admin") {
+    if (welcomeSpan) {
+      welcomeSpan.textContent = `${userType
+        .charAt(0)
+        .toUpperCase()}${userType.slice(1)}!`;
+    }
+    if (userType === "admin" && themeDiv) {
       themeDiv.style.display = "block";
-    } else {
+    } else if (themeDiv) {
       themeDiv.style.display = "none";
     }
   } else {
     loginForm.style.display = "block";
     logoutSection.style.display = "none";
-    themeDiv.style.display = "none";
+    // themeDiv.style.display = "none";
   }
 }
 
@@ -216,6 +120,38 @@ function clearInput() {
   document.getElementById("password").value = "";
 }
 
+function changeSettings(e) {
+  e.preventDefault();
+  let newLoginValue = newLogin.value;
+  let newPasswordValue = newPassword.value;
+
+  if (newLoginValue === "" || newPasswordValue === "") {
+    changeMessage.textContent = "Please fill all fields";
+    changeMessage.style.color = "red";
+  } else if (
+    (newLoginValue === adminCred.login &&
+      newPasswordValue === adminCred.password) ||
+    (newLoginValue === userCred.login && newPasswordValue === userCred.password)
+  ) {
+    changeMessage.textContent = "You can't use the same data";
+    changeMessage.style.color = "red";
+  } else {
+    if (localStorage.getItem("userType") === "admin") {
+      adminCred.login = newLoginValue;
+      adminCred.password = newPasswordValue;
+      localStorage.setItem("adminCred", JSON.stringify(adminCred));
+    } else {
+      userCred.login = newLoginValue;
+      userCred.password = newPasswordValue;
+      localStorage.setItem("userCred", JSON.stringify(userCred));
+    }
+    changeMessage.textContent = "Data changed successfully!";
+    changeMessage.style.color = "green";
+  }
+}
+
+//--------------------------------------------------------------
+// Event Listeners
 //--------------------------------------------------------------
 
 window.addEventListener("resize", function () {
@@ -228,46 +164,21 @@ window.addEventListener("resize", function () {
 
 barIcon.addEventListener("click", showMenu);
 
-if (calculate) {
-  calculate.addEventListener("click", () => {
-    if (document.getElementById("add").checked) {
-      add();
-    } else if (document.getElementById("div").checked) {
-      divide();
-    } else if (document.getElementById("que").checked) {
-      quadratic();
-    } else {
-      showHistory("---", "ERROR");
-    }
-  });
-}
-
-if (clear) {
-  clear.addEventListener("click", () => {
-    history.textContent = "";
-    num = 1;
-  });
-}
-
 LoginBtn.addEventListener("click", (e) => {
   e.preventDefault();
   let login = document.getElementById("login").value;
   let password = document.getElementById("password").value;
 
   if (login === adminCred.login && password === adminCred.password) {
-    localStorage.setItem("userType", "admin");
+    localStorage.setItem("userType", adminCred.role);
     checkLoginStatus();
     errorMsg.textContent = "";
     window.location.href = "welcome.html";
-
-    console.log("ADMIN");
   } else if (login === userCred.login && password === userCred.password) {
-    localStorage.setItem("userType", "user");
+    localStorage.setItem("userType", userCred.role);
     checkLoginStatus();
     errorMsg.textContent = "";
     window.location.href = "welcome.html";
-
-    console.log("USER");
   } else {
     errorMsg.textContent = "Login FAILED";
     errorMsg.style.color = "red";
@@ -279,7 +190,6 @@ LoginBtn.addEventListener("click", (e) => {
 logoutBtn.addEventListener("click", () => {
   localStorage.removeItem("userType");
   window.location.href = "index.html";
-
   checkLoginStatus();
 });
 
@@ -287,10 +197,101 @@ if (applyThemeButton) {
   applyThemeButton.addEventListener("click", () => {
     let selectedTheme = themeStandard.checked ? "standard" : "black";
     localStorage.setItem("theme", selectedTheme);
-    document.body.className = selectedTheme; // assuming the theme names are the same as the class names
+    document.body.className = selectedTheme;
   });
 }
 
 document.body.className = localStorage.getItem("theme") || "standard";
 
 checkLoginStatus();
+
+function saveLastVisitedPage(url) {
+  let path = new URL(url).pathname;
+  let page = path.split("/").pop().split(".")[0];
+  document.cookie = "last_page=" + page + "; path=/";
+  console.log(document.cookie);
+}
+
+window.addEventListener("beforeunload", (event) => {
+  saveLastVisitedPage(window.location.href);
+});
+
+if (ChangeSetBtn) {
+  ChangeSetBtn.addEventListener("click", (e) => {
+    changeSettings(e);
+  });
+}
+
+// acces change
+
+const acc1 = document.getElementById("acc1");
+const acc2 = document.getElementById("acc2");
+const ChangeAccessBtn = document.querySelector(".ChangeAccessBtn");
+if (acc1 && acc2) {
+  acc1.textContent = adminCred.login;
+  acc2.textContent = userCred.login;
+}
+
+let users = [
+  { id: "acc1", role: "admin", credentials: adminCred },
+  { id: "acc2", role: "user", credentials: userCred },
+];
+function changeUserRole(id, newRole) {
+  users = users.map((user) => {
+    if (user.id === id) {
+      return { ...user, role: newRole };
+    } else {
+      return user;
+    }
+  });
+
+  if (id === "acc1") {
+    localStorage.setItem(
+      "adminCred",
+      JSON.stringify({ ...adminCred, role: newRole })
+    );
+
+    if (localStorage.getItem("loggedInUser") === "acc1") {
+      localStorage.setItem("userType", newRole);
+      checkLoginStatus();
+    }
+  } else if (id === "acc2") {
+    localStorage.setItem(
+      "userCred",
+      JSON.stringify({ ...userCred, role: newRole })
+    );
+    if (localStorage.getItem("loggedInUser") === "acc2") {
+      localStorage.setItem("userType", newRole);
+    }
+  }
+  localStorage.removeItem("userType");
+  window.location.href = "index.html";
+  checkLoginStatus();
+}
+
+if (ChangeAccessBtn) {
+  ChangeAccessBtn.addEventListener("click", function () {
+    let acc1UserButton = document.getElementById("acc1User");
+    let acc2UserButton = document.getElementById("acc2User");
+    if (acc1UserButton.checked && acc2UserButton.checked) {
+      alert("There must be at least one admin.");
+      return;
+    } else {
+      users.forEach((user) => {
+        let adminButton = document.querySelector(
+          `input[name="${user.id}"][value="admin"]`
+        );
+        let userButton = document.querySelector(
+          `input[name="${user.id}"][value="user"]`
+        );
+        if (adminButton.checked) {
+          changeUserRole(user.id, "admin");
+        } else if (userButton.checked) {
+          changeUserRole(user.id, "user");
+        }
+      });
+    }
+  });
+}
+
+console.log(users);

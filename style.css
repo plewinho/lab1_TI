@@ -192,7 +192,8 @@ li {
   padding: 10px;
 }
 
-.form-group {
+.form-group,
+.change-form {
   margin: 10px 0;
 }
 #login,
@@ -218,10 +219,29 @@ body.black .left-section,
 body.black .history li {
   background-color: rgba(168, 22, 22, 0.8);
 }
-body.black .form-group label,
+body.black .form-group,
 body.black .grid p {
   color: rgb(0, 0, 0);
 }
 body.black {
   filter: grayscale(100%);
+}
+body.black th,
+body.black td {
+  border: 1px solid white;
+}
+
+table {
+  border-collapse: collapse;
+  margin: 20px 0;
+  text-align: center;
+}
+.changeAccess th,
+.changeAccess td {
+  padding: 5px;
+  border: 1px solid black;
+}
+
+.changeAccess td:first-child {
+  border-top: none;
 }

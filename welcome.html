@@ -83,11 +83,76 @@
           <input type="radio" id="theme-black" name="theme" value="black" />
           <label for="theme-black">Black</label>
           <button id="apply-theme">Change Theme</button>
+          <hr />
+        </div>
+        <div class="change-login-password">
+          <p>You can change your account setting here:</p>
+          <form>
+            <div class="change-form">
+              <label for="new-login">Username: </label>
+              <input type="text" id="new-login" name="new-login" required />
+            </div>
+            <div class="change-form">
+              <label for="new-password">Password: </label>
+              <input
+                type="password"
+                id="new-password"
+                name="new-password"
+                required
+              />
+            </div>
+            <button type="submit" class="changeBtn">Change Setting</button>
+          </form>
+          <p class="change-message"></p>
+          <hr />
+        </div>
+        <div class="changeAccess">
+          <h3>User list</h3>
+          <table>
+            <tr rowspan="2">
+              <th rowspan="2">Username</th>
+              <th colspan="2">Access right</th>
+            </tr>
+            <tr>
+              <td>Admin</td>
+              <td>User</td>
+            </tr>
+            <tr>
+              <td id="acc2"></td>
+              <td>
+                <input type="radio" name="acc2" value="admin" id="acc2Admin" />
+              </td>
+              <td>
+                <input
+                  type="radio"
+                  name="acc2"
+                  value="user"
+                  id="acc2User"
+                  checked
+                />
+              </td>
+            </tr>
+            <tr>
+              <td id="acc1"></td>
+              <td>
+                <input type="radio" name="acc1" value="admin" id="acc1Admin" />
+              </td>
+              <td>
+                <input
+                  type="radio"
+                  name="acc1"
+                  value="user"
+                  id="acc1User"
+                  checked
+                />
+              </td>
+            </tr>
+          </table>
+          <button class="ChangeAccessBtn">Change Access</button>
         </div>
       </div>
     </div>
     <footer>Footer</footer>
     <script src="script.js"></script>
-    <script src="calculator.js"></script>
   </body>
 </html>
